@@ -29,69 +29,82 @@
     padding: 10px;
 }
 
-/* Product */
-
-
-/* Product card */
-.product-item {
-  border: 1px solid #eee;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #fff;
-  transition: all 0.3s ease;
-  height: 100%;
-}
-
-.product-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* Image */
-.product-item .inner-image {
-  position: relative;
-  padding: 15px;
-}
-
-.product-item .inner-image img {
-  width: 100%;
+.product-item.horizontal {
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
+  background: #fff;
+  align-items: center;
+  transition: 0.25s;
 }
 
-/* Discount badge */
-.product-item .inner-discount {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #dc3545;
-  color: #fff;
-  font-size: 13px;
-  padding: 4px 8px;
-  border-radius: 5px;
+.product-item.horizontal:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-/* Content */
-.product-item .inner-content {
-  padding: 15px;
-  text-align: center;
+/* IMAGE */
+.product-item.horizontal .inner-image {
+  width: 160px;
+  height: 120px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 6px;
 }
 
-.product-item .inner-title {
-  font-size: 18px;
+.product-item.horizontal .inner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* CONTENT */
+.product-item.horizontal .inner-content {
+  flex: 1;
+}
+
+.inner-title {
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
-/* Price */
-.product-item .inner-price-new {
-  color: #dc3545;
-  font-size: 20px;
-  font-weight: bold;
+.inner-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.product-item .inner-price-old {
-  color: #999;
-  text-decoration: line-through;
-  margin-left: 8px;
+.inner-price-new {
+  font-size: 18px;
+  font-weight: 700;
+  color: #dc2626;
+}
+
+.inner-price-old {
   font-size: 14px;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.inner-discount {
+  margin-top: 6px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+
+@media (max-width: 768px) {
+  .product-item.horizontal {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-item.horizontal .inner-image {
+    width: 100%;
+    height: 200px;
+  }
 }
