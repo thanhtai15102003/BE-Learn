@@ -51,3 +51,62 @@
     background-color: #f8f9fa;  /* xám nhạt */
     border-bottom: 1px solid #e5e5e5;
 }
+
+/* css phần bộ lọc và tìm kiếm */
+/* ===== SEARCH FORM ===== */
+#form-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Input */
+#form-search .form-control {
+    height: 34px;
+    padding: 0 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#form-search .form-control::placeholder {
+    color: #9ca3af;
+}
+
+/* Focus */
+#form-search .form-control:focus {
+    outline: none;
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34,197,94,0.15);
+}
+
+/* Button */
+#form-search .btn-success {
+    height: 34px;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    background: #22c55e;
+    border: none;
+    transition: background 0.2s;
+}
+
+#form-search .btn-success:hover {
+    background: #16a34a;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    #form-search {
+        width: 100%;
+    }
+
+    #form-search .form-control {
+        flex: 1;
+    }
+}
+
+/* END css phần bộ lọc và tìm kiếm END*/
