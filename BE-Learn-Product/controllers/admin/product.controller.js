@@ -17,7 +17,7 @@ module.exports.index = async (req, res) => {
             name: 'Ngưng hoạt động',
             status: 'inactive',
             class: ''
-        }
+        } 
     ];
 
     if (req.query.status) {
@@ -30,6 +30,14 @@ module.exports.index = async (req, res) => {
     let find = {
         deleted: false
     };
+
+    let keyword = "";
+    if (req.query.keyword) {
+        keyword = req.query.keyword;
+        const regex = new RegExp(keyword, 'i');
+        find.title = regex;
+    }
+
     if (req.query.status) {
         find.status = req.query.status;
     }
@@ -38,6 +46,7 @@ module.exports.index = async (req, res) => {
     res.render('admin/pages/product/index', {
         pageTitle: 'Danh sách sản phẩm',
         products: products,
-        filterStatus: filterStatus
+        filterStatus: filterStatus,
+        keyword: keyword
     });
 };

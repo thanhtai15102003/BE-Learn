@@ -31,4 +31,5 @@ if (formSearch) {
         window.location.href = url.href;
     });
 }
-// End Chức năng tìm kiếm sản phẩm
+// End Chức năng tìm kiếm sản phẩm 
+
