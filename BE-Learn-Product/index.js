@@ -1,5 +1,6 @@
 const express = require('express');
 const methodOverride = require('method-override');
+const bodyParser = require('body-parser');
 
 const route = require('./routes/client/index.route');
 const routeAdmin = require('./routes/admin/index.route')
@@ -18,6 +19,7 @@ app.set('view engine', 'pug');
 
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 //App locals Variables
