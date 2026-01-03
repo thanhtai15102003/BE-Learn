@@ -33,6 +33,7 @@ module.exports.index = async (req, res) => {
 
     //End Pagination
     const products = await Product.find(find)
+        .sort({position: "desc"})
         .limit(objectPagination.limitItem)
         .skip(objectPagination.skip);
     res.render('admin/pages/product/index', {
@@ -72,6 +73,13 @@ module.exports.changeMulti = async (req, res) => {
             break;
         case 'deleteAll':
             await Product.updateMany({ _id: { $in: ids } }, { deleted: true, deteletedAt: new Date() });
+            break;
+        case 'changePosition':
+            for (const item of ids) {
+                let [id, position] = item.split('-');
+                position = parseInt(position);
+                await Product.updateOne({ _id: id }, { position: position });
+            }
             break;
         default:
             break;
