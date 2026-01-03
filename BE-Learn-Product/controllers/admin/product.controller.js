@@ -85,11 +85,18 @@ module.exports.changeMulti = async (req, res) => {
 // [DELETE] /admin/products/delete/:id
 module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
-    await Product.deleteOne({ _id: id });
+    // await Product.deleteOne({ _id: id }); xoa vinh vien
+    await Product.updateOne(
+        { _id: id },
+        {
+            deleted: true,
+            deteletedAt: new Date()
+        }
+    );
     const referer = req.get('Referer');
     const fallback =
         (req.app && req.app.locals && req.app.locals.prefixAdmin
             ? req.app.locals.prefixAdmin
             : '') + '/products';
     res.redirect(referer || fallback);
-}
+};
