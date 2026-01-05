@@ -2,6 +2,7 @@ const Product = require('../../models/product.model');
 const filterStatusHelper = require('../../helpers/filterStatus');
 const searchHelper = require('../../helpers/search');
 const paginationHelper = require('../../helpers/pagination');
+const systemConfig = require('../../config/system');
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
@@ -120,3 +121,29 @@ module.exports.deleteItem = async (req, res) => {
             : '') + '/products';
     res.redirect(referer || fallback);
 };
+
+// [GET] /admin/products/create
+module.exports.create = (req, res) => {
+    res.render('admin/pages/product/create', {
+        pageTitle: 'Thêm sản phẩm mới'
+    });
+};
+
+// [POST] /admin/products/create
+module.exports.createPost = async (req, res) => {
+    req.body.price = parseFloat(req.body.price);
+    req.body.discountPercentage = parseFloat(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+
+    if (req.body.position === "") {
+        const countProducts = await Product.countDocuments();
+        req.body.position = countProducts + 1;
+    } else {
+        req.body.position = parseInt(req.body.position);
+    }
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+    const product = new Product(req.body);
+    await product.save();
+    req.flash('success', 'Thêm sản phẩm mới thành công');
+    res.redirect(systemConfig.prefixAdmin + '/products');
+}
