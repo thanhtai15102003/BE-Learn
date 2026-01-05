@@ -33,7 +33,7 @@ module.exports.index = async (req, res) => {
 
     //End Pagination
     const products = await Product.find(find)
-        .sort({position: "desc"})
+        .sort({ position: 'desc' })
         .limit(objectPagination.limitItem)
         .skip(objectPagination.skip);
     res.render('admin/pages/product/index', {
@@ -51,6 +51,8 @@ module.exports.changeStatus = async (req, res) => {
     const id = req.params.id;
 
     await Product.updateOne({ _id: id }, { status: status });
+    req.flash('success', 'Cập nhật trạng thái thành công');
+
     const referer = req.get('Referer');
     const fallback =
         (req.app && req.app.locals && req.app.locals.prefixAdmin
@@ -67,12 +69,18 @@ module.exports.changeMulti = async (req, res) => {
     switch (type) {
         case 'active':
             await Product.updateMany({ _id: { $in: ids } }, { status: 'active' });
+            req.flash('success', `Cập nhật trạng thái ${ids.length} thành công`);
             break;
         case 'inactive':
             await Product.updateMany({ _id: { $in: ids } }, { status: 'inactive' });
+            req.flash('success', `Cập nhật trạng thái ${ids.length} thành công`);
             break;
         case 'deleteAll':
-            await Product.updateMany({ _id: { $in: ids } }, { deleted: true, deteletedAt: new Date() });
+            await Product.updateMany(
+                { _id: { $in: ids } },
+                { deleted: true, deteletedAt: new Date() }
+            );
+            req.flash('success', `Xóa  ${ids.length} sản phẩm thành công`);
             break;
         case 'changePosition':
             for (const item of ids) {
@@ -80,6 +88,7 @@ module.exports.changeMulti = async (req, res) => {
                 position = parseInt(position);
                 await Product.updateOne({ _id: id }, { position: position });
             }
+            req.flash('success', `Cập nhật trạng thái ${ids.length} thành công`);
             break;
         default:
             break;

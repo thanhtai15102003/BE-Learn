@@ -46,3 +46,18 @@ if (buttonPagination) {
     });
 }
 //End Pagination
+
+//Show Alert
+const alertShow = document.querySelector('[show-alert]');
+if (alertShow) {
+    const time = parseInt(alertShow.getAttribute('data-time'));
+    const closeAlert = alertShow.querySelector('[close-alert]');
+    setTimeout(() => {
+        alertShow.classList.add('alert-hidden');
+    }, time);
+
+    closeAlert.addEventListener('click', () => {
+        alertShow.classList.add('alert-hidden');
+    })
+}
+//End Show Alert

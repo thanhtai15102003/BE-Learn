@@ -3,18 +3,20 @@ include ../../mixins/filterStatus.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/formChangeMulti.pug
+include ../../mixins/alert.pug
 
 block main 
-        h1 Danh sách sản phẩm
-        .card-mb-3 
-            .card-header Bộ lọc và tìm kiếm 
-            .card-body
-                .row 
-                    .col-6 
-                        +filterStatus(filterStatus)
-                .row 
-                    .col-6 
-                         +search(keyword)
+    +alert-success(5000)       
+    h1 Danh sách sản phẩm
+    .card-mb-3 
+        .card-header Bộ lọc và tìm kiếm 
+        .card-body
+            .row 
+                .col-6 
+                    +filterStatus(filterStatus)
+            .row 
+                .col-6 
+                        +search(keyword)
 
         .card-mb-3 
             .card-header Danh sách 
